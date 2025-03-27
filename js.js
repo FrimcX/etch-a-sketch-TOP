@@ -14,5 +14,13 @@ for (let i = 1; i <= rows; i++) {
         pixelDiv.setAttribute('class', 'pixel');
         pixelDiv.setAttribute('style', `width: ${ (100/ rows) }%; height: ${(100 / columns)}%`);
         container.appendChild(pixelDiv);
+        pixelDiv.addEventListener('mouseenter', ()=> {
+            let pixelDivClass = pixelDiv.getAttribute('class');
+            pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-enter'));
+        });
+        pixelDiv.addEventListener('mouseleave', ()=> {
+            let pixelDivClass = pixelDiv.getAttribute('class');
+            pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-leave'));
+        });
     }
 }
