@@ -14,6 +14,10 @@ function deleteGrid() {
     }
 }
 
+function randomClr() {
+    return Math.floor(Math.random() * 255);
+}
+
 const button = document.querySelector('#button-number');
 button.addEventListener('click', () =>{
     let numberUser = Number(prompt('How many rows/columns you want?'));
@@ -51,11 +55,22 @@ function createGrid(rows = 16,columns = 16) {
             container.appendChild(pixelDiv);
             pixelDiv.addEventListener('mouseenter', ()=> {
                 let pixelDivClass = pixelDiv.getAttribute('class');
-                pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-enter'));
+                if ((pixelDivClass !== 'pixel mouse-enter') && 
+                    (pixelDivClass !== 'pixel mouse-enter mouse-leave')) {
+                        pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-enter'));
+                }
             });
             pixelDiv.addEventListener('mouseleave', ()=> {
                 let pixelDivClass = pixelDiv.getAttribute('class');
-                pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-leave'));
+                if (pixelDivClass !== 'pixel mouse-enter mouse-leave') {
+                    pixelDiv.setAttribute('class', (pixelDivClass + ' mouse-leave'));
+                    pixelDiv.style.backgroundColor = `rgb(${randomClr()},${randomClr()},${randomClr()})`;
+                    pixelDiv.style.opacity = '1';
+                }
+                if (pixelDivClass === 'pixel mouse-enter mouse-leave') {
+                    let opacity = pixelDiv.style.opacity;
+                    pixelDiv.style.opacity = `${opacity - 0.1}`; 
+                }
             });
         }
     }
